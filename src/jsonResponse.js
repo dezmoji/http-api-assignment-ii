@@ -50,7 +50,7 @@ const addUser = (request, response, body) => {
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
     return respondJSON(request, response, responseCode, responseJSON);
-  }
+  };
 
   return respondJSONMeta(request, response, responseCode);
 };
@@ -61,6 +61,11 @@ const notFound = (request, response) => {
     id: 'notFound',
     message: 'The page you are looking for was not found.',
   };
+
+  if (request.method === 'HEAD') {
+    return respondJSONMeta(request, response, 404);
+  };
+
   return respondJSON(request, response, 404, responseJSON);
 };
 

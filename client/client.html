@@ -13,6 +13,7 @@
         const p = document.createElement('p');
         p.textContent = `Message: ${obj.message}`;
         content.appendChild(p);
+        console.log(obj);
       }
       
       if(obj.users) {
@@ -20,6 +21,7 @@
         const users = JSON.stringify(obj.users);
         userList.textContent = users;
         content.appendChild(userList);
+        console.log(obj);
       }
     };
 
@@ -49,12 +51,11 @@
       const xhr = new XMLHttpRequest();
       const method = form.getAttribute('method');
       if(method === 'post'){
-        const nameAction = nameForm.getAttribute('action');
-        const nameMethod = nameForm.getAttribute('method');
-        const nameField = nameForm.querySelector('#nameField');
-        const ageField = nameForm.querySelector('#ageField');
+        const nameAction = form.getAttribute('action');
+        const nameField = form.querySelector('#nameField');
+        const ageField = form.querySelector('#ageField');
         const xhr = new XMLHttpRequest();
-        xhr.open(nameMethod, nameAction);
+        xhr.open(method, nameAction);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('Accept', 'application/json');
         xhr.onload = () => handleResponse(xhr, true);
@@ -78,7 +79,7 @@
       const userForm = document.querySelector('#userForm');
 
       const addUser = (e) => sendAjax(e, nameForm);
-      const getUser = (e) => sendAjax(e,userForm);
+      const getUser = (e) => sendAjax(e, userForm);
 
       nameForm.addEventListener('submit', addUser);
       userForm.addEventListener('submit', getUser);
